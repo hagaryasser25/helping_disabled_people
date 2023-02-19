@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314388419748",
+    "project_id": "helping-disabled-people",
+    "storage_bucket": "helping-disabled-people.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314388419748:android:367e80a82fafeb03d00231",
+        "android_client_info": {
+          "package_name": "com.example.helping_disabled_people"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314388419748-m2opdol772gb1utp52fqu295bkdhdta0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATlOQ6z5pTLhm7kC4DTyOUOhBW8PcQGIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314388419748-m2opdol772gb1utp52fqu295bkdhdta0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
