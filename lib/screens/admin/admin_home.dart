@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:helping_disabled_people/screens/admin/admin_courses.dart';
 import 'package:helping_disabled_people/screens/admin/admin_essay.dart';
-import 'package:helping_disabled_people/screens/admin/admin_jobs.dart';
 import 'package:helping_disabled_people/screens/admin/admin_places.dart';
+import 'package:helping_disabled_people/screens/admin/course_list.dart';
 import 'package:helping_disabled_people/screens/admin/jobs_list.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -89,9 +90,9 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                     InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, AdminJobs.routeName);
+                          Navigator.pushNamed(context, AdminCourses.routeName);
                         },
-                        child: card(Icons.add_business, 'أضافة وظيفة')),
+                        child: card(Icons.add_business, 'أضافة دورة تدريبية')),
                   ],
                 ),
               ),
@@ -112,9 +113,9 @@ class _AdminHomeState extends State<AdminHome> {
                     ),
                     InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, JobsList.routeName);
+                          Navigator.pushNamed(context, CourseList.routeName);
                         },
-                        child: card(Icons.list, 'قائمة التقديمات')),
+                        child: card(Icons.list, 'قائمة الحجوزات')),
                   ],
                 ),
               )

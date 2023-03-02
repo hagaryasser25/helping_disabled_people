@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:helping_disabled_people/screens/admin/add_job.dart';
 import 'package:helping_disabled_people/screens/models/jobsList_model.dart';
 import 'package:helping_disabled_people/screens/models/jobs_model.dart';
 import 'package:hexcolor/hexcolor.dart';

@@ -2,45 +2,46 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:helping_disabled_people/screens/admin/add_job.dart';
-import 'package:helping_disabled_people/screens/models/jobs_model.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
+import 'package:intl/intl.dart';
+import 'dart:ui' as ui;
 
-class AdminJobs extends StatefulWidget {
-  static const routeName = '/adminJobs';
-  const AdminJobs({super.key});
+import '../models/booking_model.dart';
+
+class CourseList extends StatefulWidget {
+  static const routeName = '/courseList';
+  const CourseList({Key? key}) : super(key: key);
 
   @override
-  State<AdminJobs> createState() => _AdminJobsState();
+  State<CourseList> createState() => _CourseListState();
 }
 
-class _AdminJobsState extends State<AdminJobs> {
+class _CourseListState extends State<CourseList> {
   late DatabaseReference base;
   late FirebaseDatabase database;
   late FirebaseApp app;
-  List<Jobs> jobsList = [];
+  List<CourseBookings> coursesList = [];
   List<String> keyslist = [];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fetchJobs();
+    fetchDoctors();
   }
 
   @override
-  void fetchJobs() async {
+  void fetchDoctors() async {
     app = await Firebase.initializeApp();
     database = FirebaseDatabase(app: app);
-    base = database.reference().child("jobs");
+    base = database.reference().child("coursesBookings");
     base.onChildAdded.listen((event) {
       print(event.snapshot.value);
-      Jobs p = Jobs.fromJson(event.snapshot.value);
-      jobsList.add(p);
+      CourseBookings p = CourseBookings.fromJson(event.snapshot.value);
+      coursesList.add(p);
+      print(coursesList.length);
       keyslist.add(event.snapshot.key.toString());
       setState(() {});
     });
@@ -49,34 +50,23 @@ class _AdminJobsState extends State<AdminJobs> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, child) => Scaffold(
             appBar: AppBar(
-              automaticallyImplyLeading: false,
               backgroundColor: HexColor('#58d2e7'),
-              title: Center(child: Text('الوظائف')),
-            ),
-            floatingActionButton: Padding(
-              padding: EdgeInsets.only(bottom: 40.h, left: 10.w),
-              child: FloatingActionButton(
-                backgroundColor: HexColor('#58d2e7'),
-                onPressed: () {
-                  Navigator.pushNamed(context, AddJob.routeName);
-                },
-                child: Icon(Icons.add),
-              ),
-            ),
+              title: Text('حجوزات الدورات')),
             body: Padding(
-              padding: const EdgeInsets.only(
-                top: 15,
-                right: 10,
-                left: 10,
+              padding:  EdgeInsets.only(
+                top: 15.h,
+                right: 10.w,
+                left: 10.w,
               ),
               child: ListView.builder(
-                itemCount: jobsList.length,
+                itemCount: coursesList.length,
                 itemBuilder: (BuildContext context, int index) {
+                  var date = coursesList[index].date;
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -90,37 +80,46 @@ class _AdminJobsState extends State<AdminJobs> {
                           Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'اسم الوظيفة : ${jobsList[index].name.toString()}',
+                                'كود الدورة : ${coursesList[index].courseCode.toString()}',
                                 style: TextStyle(fontSize: 17),
                               )),
                           Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'متطلبات الوظيفة: ${jobsList[index].requirments.toString()}',
+                                'حساب المريض : ${coursesList[index].userEmail.toString()}',
+                                style: TextStyle(fontSize: 17),
+                              )),
+                              Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                'اسم المريض : ${coursesList[index].userName.toString()}',
+                                style: TextStyle(fontSize: 17),
+                              )),
+                              Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                'هاتف المريض : ${coursesList[index].userPhone.toString()}',
                                 style: TextStyle(fontSize: 17),
                               )),
                           Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'شروط الوظيفة: ${jobsList[index].conditions.toString()}',
+                                'تاريخ الأشتراك: ${getDate(date!)}',
                                 style: TextStyle(fontSize: 17),
                               )),
-                          InkWell(
+                              InkWell(
                             onTap: () {
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          super.widget));
-                              base
-                                  .child(jobsList[index].id.toString())
-                                  .remove();
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            super.widget));
+                                base
+                                    .child(coursesList[index].id.toString())
+                                    .remove();
                             },
                             child: Icon(Icons.delete,
                                 color: Color.fromARGB(255, 122, 122, 122)),
-                          ),
-                          SizedBox(
-                            height: 10.h,
                           )
                         ]),
                       ),
@@ -131,5 +130,10 @@ class _AdminJobsState extends State<AdminJobs> {
             )),
       ),
     );
+  }
+  String getDate(int date) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(date);
+
+    return DateFormat('MMM dd yyyy').format(dateTime);
   }
 }

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:helping_disabled_people/screens/user/user_courses.dart';
 import 'package:helping_disabled_people/screens/user/user_essay.dart';
-import 'package:helping_disabled_people/screens/user/user_jobs.dart';
 import 'package:helping_disabled_people/screens/user/user_places.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -196,9 +196,9 @@ class _UserHomeState extends State<UserHome> {
                       ),
                       InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, UserJobs.routeName);
+                          Navigator.pushNamed(context, UserCourses.routeName);
                         },
-                        child: card(Icons.add_business, 'الوظائف')),
+                        child: card(Icons.task, 'الدورات التدريبية')),
                       SizedBox(
                         width: 10.w,
                       ),
