@@ -1,13 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_disabled_people/screens/admin/add_doctor.dart';
 import 'package:helping_disabled_people/screens/admin/add_essay.dart';
 import 'package:helping_disabled_people/screens/admin/add_place.dart';
 import 'package:helping_disabled_people/screens/admin/admin_courses.dart';
+import 'package:helping_disabled_people/screens/admin/admin_doctors.dart';
 import 'package:helping_disabled_people/screens/admin/admin_essay.dart';
 import 'package:helping_disabled_people/screens/admin/admin_home.dart';
+import 'package:helping_disabled_people/screens/admin/admin_list.dart';
 import 'package:helping_disabled_people/screens/admin/admin_places.dart';
 import 'package:helping_disabled_people/screens/admin/course_list.dart';
+import 'package:helping_disabled_people/screens/admin/doctor_list.dart';
 import 'package:helping_disabled_people/screens/admin/fetch_essay.dart';
 import 'package:helping_disabled_people/screens/admin/jobs_list.dart';
 import 'package:helping_disabled_people/screens/auth/admin_login.dart';
@@ -15,6 +19,7 @@ import 'package:helping_disabled_people/screens/auth/login.dart';
 import 'package:helping_disabled_people/screens/auth/signup.dart';
 import 'package:helping_disabled_people/screens/user/get_job.dart';
 import 'package:helping_disabled_people/screens/user/user_courses.dart';
+import 'package:helping_disabled_people/screens/user/user_doctors.dart';
 import 'package:helping_disabled_people/screens/user/user_essay.dart';
 import 'package:helping_disabled_people/screens/user/user_home.dart';
 import 'package:helping_disabled_people/screens/user/user_places.dart';
@@ -69,6 +74,11 @@ class MyApp extends StatelessWidget {
         AddCourse.routeName: (ctx) =>AddCourse(),
         UserCourses.routeName: (ctx) =>UserCourses(),
         CourseList.routeName: (ctx) =>CourseList(),
+        AdminDoctors.routeName: (ctx) =>AdminDoctors(),
+        AdminList.routeName: (ctx) =>AdminList(),
+        DoctorList.routeName: (ctx) =>DoctorList(),
+        AddDoctor.routeName: (ctx) =>AddDoctor(),
+        UserDoctors.routeName: (ctx) =>UserDoctors(),
       },
     );
   }

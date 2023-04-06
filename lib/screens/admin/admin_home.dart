@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:helping_disabled_people/screens/admin/admin_courses.dart';
+import 'package:helping_disabled_people/screens/admin/admin_doctors.dart';
 import 'package:helping_disabled_people/screens/admin/admin_essay.dart';
+import 'package:helping_disabled_people/screens/admin/admin_list.dart';
 import 'package:helping_disabled_people/screens/admin/admin_places.dart';
 import 'package:helping_disabled_people/screens/admin/course_list.dart';
 import 'package:helping_disabled_people/screens/admin/jobs_list.dart';
@@ -65,61 +67,72 @@ class _AdminHomeState extends State<AdminHome> {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Image.asset(
-                'assets/images/2.jfif',
-                height: 250.h,
-              ),
-              Text('الخدمات المتاحة',
-                  style: TextStyle(fontSize: 27, color: HexColor('#155564'))),
-              Padding(
-                padding: EdgeInsets.only(
-                  right: 10.w,
-                  left: 10.w,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/2.jfif',
+                  
+             
                 ),
-                child: Row(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, AdminEssay.routeName);
-                        },
-                        child: card(Icons.article, 'مقالات عن ذو الأعاقة')),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, AdminCourses.routeName);
-                        },
-                        child: card(Icons.add_business, 'أضافة دورة تدريبية')),
-                  ],
+                Text('الخدمات المتاحة',
+                    style: TextStyle(fontSize: 27, color: HexColor('#155564'))),
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 10.w,
+                    left: 10.w,
+                  ),
+                  child: Row(
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AdminEssay.routeName);
+                          },
+                          child: card(Icons.article, 'مقالات عن ذو الأعاقة')),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, AdminCourses.routeName);
+                          },
+                          child:
+                              card(Icons.add_business, 'أضافة دورة تدريبية')),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  right: 10.w,
-                  left: 10.w,
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 10.w,
+                    left: 10.w,
+                  ),
+                  child: Row(
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AdminPlaces.routeName);
+                          },
+                          child: card(Icons.park, 'أضافة اماكن ترفيهية')),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AdminList.routeName);
+                          },
+                          child: card(Icons.list, 'قائمة الحجوزات')),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, AdminPlaces.routeName);
-                        },
-                        child: card(Icons.park, 'أضافة اماكن ترفيهية')),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, CourseList.routeName);
-                        },
-                        child: card(Icons.list, 'قائمة الحجوزات')),
-                  ],
-                ),
-              )
-            ],
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, AdminDoctors.routeName);
+                    },
+                    child: card(Icons.local_hospital, 'أضافة طبيب')),
+                SizedBox(height: 20.h,)
+              ],
+            ),
           ),
         ),
       ),

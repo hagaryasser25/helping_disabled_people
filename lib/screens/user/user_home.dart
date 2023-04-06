@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:helping_disabled_people/screens/user/user_courses.dart';
+import 'package:helping_disabled_people/screens/user/user_doctors.dart';
 import 'package:helping_disabled_people/screens/user/user_essay.dart';
 import 'package:helping_disabled_people/screens/user/user_places.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -22,7 +23,7 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHomeState extends State<UserHome> {
-    late DatabaseReference base;
+  late DatabaseReference base;
   late FirebaseDatabase database;
   late FirebaseApp app;
   late Users currentUser;
@@ -46,7 +47,7 @@ class _UserHomeState extends State<UserHome> {
       currentUser = Users.fromSnapshot(snapshot);
     });
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -58,7 +59,7 @@ class _UserHomeState extends State<UserHome> {
             backgroundColor: HexColor('#58d2e7'),
             title: Center(child: Text('الصفحة الرئيسية')),
           ),
-            drawer: Drawer(
+          drawer: Drawer(
             child: FutureBuilder(
               future: getUserData(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -77,7 +78,9 @@ class _UserHomeState extends State<UserHome> {
                         ),
                         child: Column(
                           children: [
-                            SizedBox(height: 18.h,),
+                            SizedBox(
+                              height: 18.h,
+                            ),
                             Center(
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
@@ -181,9 +184,7 @@ class _UserHomeState extends State<UserHome> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 20.h,
-                  right: 10.w,
-                  left: 10.w),
+                  padding: EdgeInsets.only(top: 20.h, right: 10.w, left: 10.w),
                   child: Row(
                     children: [
                       InkWell(
@@ -195,18 +196,26 @@ class _UserHomeState extends State<UserHome> {
                         width: 10.w,
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.pushNamed(context, UserCourses.routeName);
-                        },
-                        child: card(Icons.task, 'الدورات التدريبية')),
+                          onTap: () {
+                            Navigator.pushNamed(context, UserDoctors.routeName);
+                          },
+                          child: card(Icons.local_hospital, 'الأطباء')),
                       SizedBox(
                         width: 10.w,
                       ),
                       InkWell(
-                        onTap: () {
+                          onTap: () {
+                            Navigator.pushNamed(context, UserCourses.routeName);
+                          },
+                          child: card(Icons.task, 'الدورات التدريبية')),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      InkWell(
+                          onTap: () {
                             Navigator.pushNamed(context, UserPlaces.routeName);
                           },
-                        child: card(Icons.park, 'الأماكن الترفيهية')),
+                          child: card(Icons.park, 'الأماكن الترفيهية')),
                     ],
                   ),
                 ),

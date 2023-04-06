@@ -10,20 +10,21 @@ import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
 import '../models/booking_model.dart';
+import '../models/doctor_list_model.dart';
 
-class CourseList extends StatefulWidget {
-  static const routeName = '/courseList';
-  const CourseList({Key? key}) : super(key: key);
+class DoctorList extends StatefulWidget {
+  static const routeName = '/doctorList';
+  const DoctorList({Key? key}) : super(key: key);
 
   @override
-  State<CourseList> createState() => _CourseListState();
+  State<DoctorList> createState() => _DoctorListState();
 }
 
-class _CourseListState extends State<CourseList> {
+class _DoctorListState extends State<DoctorList> {
   late DatabaseReference base;
   late FirebaseDatabase database;
   late FirebaseApp app;
-  List<CourseBookings> coursesList = [];
+  List<DoctorsBookings> coursesList = [];
   List<String> keyslist = [];
 
   @override
@@ -36,10 +37,10 @@ class _CourseListState extends State<CourseList> {
   void fetchDoctors() async {
     app = await Firebase.initializeApp();
     database = FirebaseDatabase(app: app);
-    base = database.reference().child("coursesBookings");
+    base = database.reference().child("doctorsBookings");
     base.onChildAdded.listen((event) {
       print(event.snapshot.value);
-      CourseBookings p = CourseBookings.fromJson(event.snapshot.value);
+      DoctorsBookings p = DoctorsBookings.fromJson(event.snapshot.value);
       coursesList.add(p);
       print(coursesList.length);
       keyslist.add(event.snapshot.key.toString());
@@ -56,7 +57,7 @@ class _CourseListState extends State<CourseList> {
         builder: (context, child) => Scaffold(
             appBar: AppBar(
                 backgroundColor: HexColor('#58d2e7'),
-                title: Text('حجوزات الدورات')),
+                title: Text('حجوزات الاطباء')),
             body: Padding(
               padding: EdgeInsets.only(
                 top: 15.h,
@@ -80,13 +81,13 @@ class _CourseListState extends State<CourseList> {
                           Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'كود الدورة : ${coursesList[index].courseCode.toString()}',
+                                'اسم الدكتور: ${coursesList[index].doctorName.toString()}',
                                 style: TextStyle(fontSize: 17),
                               )),
                           Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'تاريخ الأشتراك: ${getDate(date!)}',
+                                'تاريخ الأشتراك: ${coursesList[index].date.toString()}',
                                 style: TextStyle(fontSize: 17),
                               )),
                           ConstrainedBox(
@@ -126,6 +127,13 @@ class _CourseListState extends State<CourseList> {
                                               alignment: Alignment.topRight,
                                               child: Text(
                                                 '${coursesList[index].userPhone.toString()}',
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(fontSize: 17),
+                                              )),
+                                              Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text(
+                                                '${coursesList[index].status.toString()}',
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(fontSize: 17),
                                               )),
